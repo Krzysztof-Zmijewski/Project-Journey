@@ -1,4 +1,4 @@
-package com.example.projectjourney;
+package pl.coderslab.projectjourney;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.example.projectjourney;
+package pl.coderslab.projectjourney;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
