@@ -1,4 +1,4 @@
-package com.example.projectjourney;
+package pl.coderslab.projectjourney;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
