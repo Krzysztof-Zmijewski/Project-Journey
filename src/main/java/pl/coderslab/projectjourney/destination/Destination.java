@@ -2,6 +2,7 @@ package pl.coderslab.projectjourney.destination;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.trip.Trip;
 
 import javax.persistence.*;
@@ -19,10 +20,12 @@ public class Destination {
     private Long id;
     private String place;
     private LocalDate since;
-    private LocalDate until;
+    private LocalDate deadline;
     private BigDecimal cost;
     private String link;
-    @OneToMany
-    @JoinColumn(name = "id_trips")
+    @ManyToOne
+    @JoinColumn(name = "journey_id")
+    private Journey journey;
+    @OneToMany(mappedBy = "destination")
     private List<Trip> trips;
 }

@@ -2,6 +2,7 @@ package pl.coderslab.projectjourney.trip;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.projectjourney.destination.Destination;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,5 +18,8 @@ public class Trip {
     private Long id;
     private String place;
     private BigDecimal cost;
-    private LocalDate date;
+    private LocalDate current;
+    @ManyToOne
+    @JoinColumn(name = "destination_id")
+    private Destination destination;
 }

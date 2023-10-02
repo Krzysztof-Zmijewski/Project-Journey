@@ -19,10 +19,9 @@ public class Journey {
     private Long id;
     private String title;
     private LocalDate since;
-    private LocalDate until;
+    private LocalDate deadline;
     private BigDecimal cost;
-    @OneToMany
-    @JoinColumn(name = "destinations_id")
+    @OneToMany(mappedBy = "journey")
     private List<Destination> destinations;
 
 }
