@@ -20,7 +20,7 @@ public class Journey {
     private String title;
     private LocalDate since;
     private LocalDate deadline;
-    private BigDecimal cost;
+    private BigDecimal totalCost;
     @OneToMany(mappedBy = "journey")
     private List<Destination> destinations;
 
