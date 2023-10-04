@@ -2,10 +2,13 @@ package pl.coderslab.projectjourney.journey;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.projectjourney.destination.Destination;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,10 +21,12 @@ public class Journey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate since;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private BigDecimal totalCost;
-    @OneToMany(mappedBy = "journey")
+    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER)
     private List<Destination> destinations;
 
 }

@@ -26,6 +26,6 @@ public class Destination {
     @ManyToOne
     @JoinColumn(name = "journey_id")
     private Journey journey;
-    @OneToMany(mappedBy = "destination")
+    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
     private List<Trip> trips;
 }

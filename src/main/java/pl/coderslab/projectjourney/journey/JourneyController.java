@@ -14,7 +14,7 @@ public class JourneyController {
     private JourneyRepository journeyRepository;
     @GetMapping
     public String homePage(Model model) {
-
+        model.addAttribute("journeys", journeyRepository.findAll());
         return "home-page";
     }
 

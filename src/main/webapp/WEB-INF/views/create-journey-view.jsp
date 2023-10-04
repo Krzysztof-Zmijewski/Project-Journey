@@ -14,12 +14,12 @@
     </div>
     <div>
         <label for="since">Since:
-            <form:input path="since"/>
+            <form:input type="date" path="since"/>
         </label>
     </div>
     <div>
         <label for="deadline">To:
-            <form:input path="deadline"/>
+            <form:input type="date" path="deadline"/>
         </label>
     </div>
     <form:button type="submit">Submit</form:button>
