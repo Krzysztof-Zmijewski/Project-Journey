@@ -23,7 +23,7 @@ public class Destination {
     private LocalDate deadline;
     private BigDecimal cost;
     private String link;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "journey_id")
     private Journey journey;
     @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)

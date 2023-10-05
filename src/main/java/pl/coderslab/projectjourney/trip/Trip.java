@@ -19,7 +19,7 @@ public class Trip {
     private String place;
     private BigDecimal cost;
     private LocalDate current;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "destination_id")
     private Destination destination;
 }
