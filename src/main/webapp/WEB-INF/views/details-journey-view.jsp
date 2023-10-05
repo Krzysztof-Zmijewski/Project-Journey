@@ -14,6 +14,7 @@
 </div>
 <div>
     <h2>Destinations</h2>
+    <a href="${pageContext.request.contextPath}/journey/destination/create?id=${journey.id}">Create Destination</a>
 </div>
 <c:forEach items="${journey.destinations}" var="destination">
     <div>

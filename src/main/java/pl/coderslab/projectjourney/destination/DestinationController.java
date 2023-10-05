@@ -28,4 +28,19 @@ public class DestinationController {
 
         return "details-journey-view";
     }
+
+    @GetMapping("/create")
+    public String createDestination(@RequestParam Long id, Model model) {
+        Destination destination = new Destination();
+        model.addAttribute("destination", destination);
+        model.addAttribute("ids", id);
+        return "create-destination-view";
+    }
+
+    @PostMapping("/create")
+    public String createDestination(@RequestParam Long id,Destination destination) {
+        destination.setJourney(journeyRepository.getReferenceById(id));
+        destinationRepository.save(destination);
+        return "redirect:/journey";
+    }
 }

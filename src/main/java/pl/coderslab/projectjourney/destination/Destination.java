@@ -2,6 +2,7 @@ package pl.coderslab.projectjourney.destination;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.trip.Trip;
 
@@ -19,7 +20,9 @@ public class Destination {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String place;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate since;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private BigDecimal cost;
     private String link;
