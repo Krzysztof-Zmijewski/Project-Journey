@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/journey")
@@ -26,7 +27,17 @@ public class JourneyController {
 
     @PostMapping("/create")
     public String createJourney(Journey journey){
+        if(journey.getId() != null) {
+            journeyRepository.updateJourneyBy(journey);
+            return "redirect:/journey";
+        }
         journeyRepository.save(journey);
         return "redirect:/journey";
+    }
+
+    @GetMapping("/edit")
+    public String editJourney(@RequestParam Long id, Model model) {
+        model.addAttribute("journey", journeyRepository.findById(id));
+        return "create-journey-view";
     }
 }
