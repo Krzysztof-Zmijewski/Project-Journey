@@ -3,10 +3,7 @@ package pl.coderslab.projectjourney.journey;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/journey")
@@ -39,5 +36,17 @@ public class JourneyController {
     public String editJourney(@RequestParam Long id, Model model) {
         model.addAttribute("journey", journeyRepository.findById(id));
         return "create-journey-view";
+    }
+
+    @GetMapping("/delete")
+    public String confirmDelete(@RequestParam Long id, Model model) {
+        model.addAttribute("journey", journeyRepository.findById(id));
+        return "delete-journey-view";
+    }
+
+    @PostMapping("/delete")
+    public String deleteJourney(Journey journey) {
+        journeyRepository.deleteById(journey.getId());
+        return "redirect:/journey";
     }
 }

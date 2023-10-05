@@ -16,8 +16,9 @@ Since: ${journey.since}  To: ${journey.deadline}  Total cost: ${journey.totalCos
         <h6>${destination.place}</h6>
     </div>
     </c:forEach>
-<a href="${pageContext.request.contextPath}/journey/edit?id=${journey.id}">Edit</a>
-<a href="${pageContext.request.contextPath}/journey">Details</a>
+    <a href="${pageContext.request.contextPath}/journey/edit?id=${journey.id}">Edit</a>
+    <a href="${pageContext.request.contextPath}/journey">Details</a>
+    <a href="${pageContext.request.contextPath}/journey/delete?id=${journey.id}">Delete</a>
 </c:forEach>
 <br/>
 <a href="${pageContext.request.contextPath}/journey/create">Create new Journey</a>
