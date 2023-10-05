@@ -49,4 +49,5 @@ public class JourneyController {
         journeyRepository.deleteById(journey.getId());
         return "redirect:/journey";
     }
+
 }
