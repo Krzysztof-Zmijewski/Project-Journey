@@ -6,17 +6,17 @@
     <title>details-journey-view</title>
 </head>
 <body>
-<h2>${journey.title} </h2>
+<h2>${journey.get().title} </h2>
 <div>
-    Since: ${journey.since}  To: ${journey.deadline}  Total cost: ${journey.totalCost}
-    <a href="${pageContext.request.contextPath}/journey/edit?id=${journey.id}">Edit</a>
-    <a href="${pageContext.request.contextPath}/journey/delete?id=${journey.id}">Delete</a>
+    Since: ${journey.get().since}  To: ${journey.get().deadline}  Total cost: ${journey.get().totalCost}
+    <a href="${pageContext.request.contextPath}/journey/edit?id=${journey.get().id}">Edit</a>
+    <a href="${pageContext.request.contextPath}/journey/delete?id=${journey.get().id}">Delete</a>
 </div>
 <div>
     <h2>Destinations</h2>
-    <a href="${pageContext.request.contextPath}/journey/destination/create?id=${journey.id}">Create Destination</a>
+    <a href="${pageContext.request.contextPath}/journey/destination/create?id=${journey.get().id}">Create Destination</a>
 </div>
-<c:forEach items="${journey.destinations}" var="destination">
+<c:forEach items="${journey.get().destinations}" var="destination">
     <div>
         Since: ${destination.since}  To: ${destination.deadline}  Cost: ${destination.cost}  <a href="${destination.link}">Link</a>
     </div>

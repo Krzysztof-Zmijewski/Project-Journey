@@ -6,7 +6,7 @@
     <title>create-destination-view</title>
 </head>
 <body>
-<form:form method="Post" modelAttribute="destination" action="/journey/destination/create?id=${ids}" >
+<form:form method="Post" modelAttribute="destination" action="/journey/destination/create?ids=${ids}" >
     <div>
         <label for="place">Place:
             <form:input path="place" autocomplete="true"/>

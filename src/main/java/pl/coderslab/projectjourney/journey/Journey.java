@@ -24,7 +24,11 @@ public class Journey {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private BigDecimal totalCost;
-    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "journey",fetch = FetchType.EAGER)
     private List<Destination> destinations;
+
+    //public void addDestination (Destination destination) {
+      //  destinations.add(destination);
+    //}
 
 }

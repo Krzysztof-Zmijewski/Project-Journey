@@ -12,6 +12,7 @@ import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.JourneyRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("journey/destination")
@@ -22,8 +23,9 @@ public class DestinationController {
 
     @GetMapping("")
     public String detailsJourney(@RequestParam Long id, Model model) {
-        Journey journey = journeyRepository.getReferenceById(id);
-//        List<Destination> destinations = journey.getDestinations();
+        Optional<Journey> journey = journeyRepository.findById(id);
+        //List<Destination> destinations = destinationRepository.getDestinationsByJourneyContains(id);
+        //model.addAttribute("destinations", destinations);
         model.addAttribute("journey", journey);
 
         return "details-journey-view";
@@ -31,16 +33,16 @@ public class DestinationController {
 
     @GetMapping("/create")
     public String createDestination(@RequestParam Long id, Model model) {
-        Destination destination = new Destination();
-        model.addAttribute("destination", destination);
+        model.addAttribute("destination", new Destination());
         model.addAttribute("ids", id);
         return "create-destination-view";
     }
 
     @PostMapping("/create")
-    public String createDestination(@RequestParam Long id,Destination destination) {
-        destination.setJourney(journeyRepository.getReferenceById(id));
-        destinationRepository.save(destination);
+    public String createDestination(@RequestParam Long ids,Destination destination) {
+        destination.setJourney(journeyRepository.getReferenceById(ids));
+        Journey journey = journeyRepository.getReferenceById(ids);
+        journeyRepository.save(journey);
         return "redirect:/journey";
     }
 }

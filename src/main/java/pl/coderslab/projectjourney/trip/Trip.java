@@ -21,7 +21,7 @@ public class Trip {
     private BigDecimal cost;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate current;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "destination_id")
-    private Destination destination;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "destination_id")
+//    private Destination destination;
 }
