@@ -40,9 +40,11 @@ public class DestinationController {
 
     @PostMapping("/create")
     public String createDestination(@RequestParam Long ids,Destination destination) {
-        destination.setJourney(journeyRepository.getReferenceById(ids));
-        Journey journey = journeyRepository.getReferenceById(ids);
-        journeyRepository.save(journey);
+//        destination.setJourney(journeyRepository.getReferenceById(ids));
+        destinationRepository.save(destination);
+        Journey journey = journeyRepository.getJourneyById(ids);
+        journey.addDestination(destination);
+        journeyRepository.saveAndFlush(journey);
         return "redirect:/journey";
     }
 }

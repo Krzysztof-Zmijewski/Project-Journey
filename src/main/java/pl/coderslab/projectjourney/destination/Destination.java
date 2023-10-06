@@ -26,9 +26,9 @@ public class Destination {
     private LocalDate deadline;
     private BigDecimal cost;
     private String link;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "journey_id")
-    private Journey journey;
-    @OneToMany(mappedBy = "journey",fetch = FetchType.EAGER)
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "journey_id")
+//    private Journey journey;
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Trip> trips;
 }
