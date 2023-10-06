@@ -44,7 +44,7 @@ public class DestinationController {
         destinationRepository.save(destination);
         Journey journey = journeyRepository.getJourneyById(ids);
         journey.addDestination(destination);
-        journeyRepository.saveAndFlush(journey);
+        journeyRepository.save(journey);
         return "redirect:/journey";
     }
 }
