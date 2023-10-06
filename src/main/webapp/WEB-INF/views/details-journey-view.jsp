@@ -18,6 +18,9 @@
 </div>
 <c:forEach items="${journey.get().destinations}" var="destination">
     <div>
+        <h3>${destination.place}</h3>
+    </div>
+    <div>
         Since: ${destination.since}  To: ${destination.deadline}  Cost: ${destination.cost}  <a href="${destination.link}">Link</a>
     </div>
     <div>
@@ -25,7 +28,8 @@
         <a href="${pageContext.request.contextPath}/journey/destination//delete?id=${destination.id}">Delete</a>
     </div>
     <div>
-        <h6>Trips</h6>
+        <h4>Trips</h4>
+        <a href="${pageContext.request.contextPath}/journey/destination/trip/create?id=${destination.id}">Create Trip</a>
     </div>
         <table>
             <tr>
