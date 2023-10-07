@@ -16,7 +16,7 @@
     <h2>Destinations</h2>
     <a href="${pageContext.request.contextPath}/journey/destination/create?id=${journey.get().id}">Create Destination</a>
 </div>
-<c:forEach items="${journey.get().destinations}" var="destination">
+<c:forEach items="${journey.get().destinations}" var="destination" varStatus="current">
     <div>
         <h3>${destination.place}</h3>
     </div>
@@ -24,8 +24,8 @@
         Since: ${destination.since}  To: ${destination.deadline}  Cost: ${destination.cost}  <a href="${destination.link}">Link</a>
     </div>
     <div>
-        <a href="${pageContext.request.contextPath}/journey/destination/edit?id=${destination.id}">Edit </a>
-        <a href="${pageContext.request.contextPath}/journey/destination//delete?id=${destination.id}"> Delete</a>
+        <a href="${pageContext.request.contextPath}/journey/destination/edit?id=${destination.id}&ids=${journey.get().id}">Edit </a>
+        <a href="${pageContext.request.contextPath}/journey/destination/delete?id=${destination.id}&ids=${journey.get().id}"> Delete</a>
     </div>
     <div>
         <h4>Trips</h4>
@@ -43,8 +43,8 @@
                 <td>${trip.cost}</td>
                 <td>${trip.current}</td>
             </tr>
-        <a href="${pageContext.request.contextPath}/trip/edit?id=${trip.id}">Edit</a>
-        <a href="${pageContext.request.contextPath}/trip/delete?id=${trip.id}">Delete</a>
+        <a href="${pageContext.request.contextPath}/journey/destination/trip/edit?id=${trip.id}&ids=${journey.get().id}">Edit</a>
+        <a href="${pageContext.request.contextPath}/journey/destination/trip/delete?id=${trip.id}">Delete</a>
         </table>
     </c:forEach>
 </c:forEach>

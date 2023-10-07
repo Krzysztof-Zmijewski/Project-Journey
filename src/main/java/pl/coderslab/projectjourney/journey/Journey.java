@@ -30,4 +30,8 @@ public class Journey {
         destinations.add(destination);
     }
 
+    public void deleteDestination (Destination destination) {
+        destinations.remove(destination);
+    }
+
 }
