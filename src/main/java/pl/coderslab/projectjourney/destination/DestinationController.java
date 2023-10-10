@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.projectjourney.destination.service.DestinationService;
 import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.JourneyRepository;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class DestinationController {
     private DestinationRepository destinationRepository;
     private JourneyRepository journeyRepository;
+    private DestinationService destinationService;
 
     @GetMapping("")
     public String detailsJourney(@RequestParam Long id, Model model) {
@@ -35,20 +37,7 @@ public class DestinationController {
 
     @PostMapping("/create")
     public String createDestination(@RequestParam Long ids,Destination destination) {
-        if(destination.getId() != null) {
-            Destination toEdit = destinationRepository.getDestinationById(destination.getId());
-            toEdit.setCost(destination.getCost());
-            toEdit.setSince(destination.getSince());
-            toEdit.setLink(destination.getLink());
-            toEdit.setDeadline(destination.getDeadline());
-            toEdit.setPlace(destination.getPlace());
-            destinationRepository.save(toEdit);
-            return "redirect:?id=" + ids;
-        }
-        destinationRepository.save(destination);
-        Journey journey = journeyRepository.getJourneyById(ids);
-        journey.addDestination(destination);
-        journeyRepository.save(journey);
+        destinationService.createOrUpdateExisting(destination, ids);
         return "redirect:?id=" + ids;
     }
 

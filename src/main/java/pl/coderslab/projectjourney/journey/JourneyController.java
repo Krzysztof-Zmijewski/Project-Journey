@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.projectjourney.journey.service.JourneyService;
 
 import java.util.List;
 
@@ -11,10 +12,10 @@ import java.util.List;
 @RequestMapping("/journey")
 @AllArgsConstructor
 public class JourneyController {
-    private JourneyRepository journeyRepository;
+    private JourneyService journeyService;
     @GetMapping
     public String homePage(Model model) {
-        model.addAttribute("journeys", journeyRepository.findAll());
+        model.addAttribute("journeys", journeyService.getAll());
         return "home-page";
     }
 
@@ -27,35 +28,26 @@ public class JourneyController {
 
     @PostMapping("/create")
     public String createJourney(Journey journey){
-        if(journey.getId() != null) {
-            Journey toEdit = journeyRepository.getJourneyById(journey.getId());
-            toEdit.setSince(journey.getSince());
-            toEdit.setTitle(journey.getTitle());
-            toEdit.setDeadline(journey.getDeadline());
-            toEdit.setTotalCost(journey.getTotalCost());
-            journeyRepository.save(toEdit);
-            return "redirect:/journey";
-        }
-        journeyRepository.save(journey);
+        journeyService.createOrUpdateExisting(journey);
         return "redirect:/journey";
     }
 
     @GetMapping("/edit")
     public String editJourney(@RequestParam Long id, Model model) {
-        model.addAttribute("journey", journeyRepository.findById(id));
+        model.addAttribute("journey", journeyService.get(id));
         model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
         return "create-journey-view";
     }
 
     @GetMapping("/delete")
     public String confirmDelete(@RequestParam Long id, Model model) {
-        model.addAttribute("journey", journeyRepository.findById(id));
+        model.addAttribute("journey", journeyService.get(id));
         return "delete-journey-view";
     }
 
     @PostMapping("/delete")
     public String deleteJourney(Journey journey) {
-        journeyRepository.deleteById(journey.getId());
+        journeyService.delete(journey);
         return "redirect:/journey";
     }
 
