@@ -31,6 +31,7 @@ public class Destination {
 //    private Journey journey;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Trip> trips;
+    private String currency;
 
     public void addTrip (Trip trip) {
         trips.add(trip);

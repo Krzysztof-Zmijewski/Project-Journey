@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/journey")
 @AllArgsConstructor
@@ -19,13 +21,19 @@ public class JourneyController {
     @GetMapping("/create")
     public String createJourney(Model model){
         model.addAttribute("journey", new Journey());
+        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
         return "create-journey-view";
     }
 
     @PostMapping("/create")
     public String createJourney(Journey journey){
         if(journey.getId() != null) {
-            journeyRepository.updateJourneyBy(journey);
+            Journey toEdit = journeyRepository.getJourneyById(journey.getId());
+            toEdit.setSince(journey.getSince());
+            toEdit.setTitle(journey.getTitle());
+            toEdit.setDeadline(journey.getDeadline());
+            toEdit.setTotalCost(journey.getTotalCost());
+            journeyRepository.save(toEdit);
             return "redirect:/journey";
         }
         journeyRepository.save(journey);
@@ -35,6 +43,7 @@ public class JourneyController {
     @GetMapping("/edit")
     public String editJourney(@RequestParam Long id, Model model) {
         model.addAttribute("journey", journeyRepository.findById(id));
+        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
         return "create-journey-view";
     }
 

@@ -26,6 +26,7 @@ public class Journey {
     private BigDecimal totalCost;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Destination> destinations;
+    private String currency;
     public void addDestination (Destination destination) {
         destinations.add(destination);
     }

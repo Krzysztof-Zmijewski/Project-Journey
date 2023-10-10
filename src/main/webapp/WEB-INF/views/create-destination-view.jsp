@@ -28,6 +28,11 @@
         </label>
     </div>
     <div>
+        <label for="currency">Currency:
+            <form:select path="currency" items="${currency}"/>
+        </label>
+    </div>
+    <div>
         <label for="link">Link:
             <form:input path="link" autocomplete="true"/>
         </label>

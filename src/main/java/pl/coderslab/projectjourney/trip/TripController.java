@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.projectjourney.destination.Destination;
 import pl.coderslab.projectjourney.destination.DestinationRepository;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/journey/destination/trip")
 @AllArgsConstructor
@@ -21,6 +23,7 @@ public class TripController {
     public String createTrip(@RequestParam Long ids, Model model) {
         model.addAttribute("trip", new Trip());
         model.addAttribute("ids", ids);
+        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
         return "/create-trip-view";
     }
 
@@ -41,6 +44,7 @@ public class TripController {
     public String editTrip(@RequestParam Long id, @RequestParam Long ids, Model model) {
         model.addAttribute("trip", tripRepository.getTripById(id));
         model.addAttribute("ids", ids);
+        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
         return "/create-trip-view";
     }
 }

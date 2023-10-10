@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.JourneyRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,6 +29,7 @@ public class DestinationController {
     public String createDestination(@RequestParam Long id, Model model) {
         model.addAttribute("destination", new Destination());
         model.addAttribute("ids", id);
+        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
         return "create-destination-view";
     }
 
@@ -54,6 +56,7 @@ public class DestinationController {
     public String editDestination(@RequestParam Long id, @RequestParam Long ids, Model model) {
         model.addAttribute("destination", destinationRepository.getDestinationById(id));
         model.addAttribute("ids", ids);
+        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
         return "create-destination-view";
     }
 
