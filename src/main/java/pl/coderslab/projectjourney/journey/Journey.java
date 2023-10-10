@@ -31,7 +31,7 @@ public class Journey {
     }
 
     public void deleteDestination (Destination destination) {
-        destinations.remove(destination);
+        destinations.removeIf(d -> d.getId().equals(destination.getId()));
     }
 
 }

@@ -1,14 +1,12 @@
 package pl.coderslab.projectjourney.destination;
 
 import lombok.AllArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.JourneyRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -21,8 +19,6 @@ public class DestinationController {
     @GetMapping("")
     public String detailsJourney(@RequestParam Long id, Model model) {
         Optional<Journey> journey = journeyRepository.findById(id);
-        //List<Destination> destinations = destinationRepository.getDestinationsByJourneyContains(id);
-        //model.addAttribute("destinations", destinations);
         model.addAttribute("journey", journey);
 
         return "details-journey-view";
@@ -37,9 +33,14 @@ public class DestinationController {
 
     @PostMapping("/create")
     public String createDestination(@RequestParam Long ids,Destination destination) {
-//        destination.setJourney(journeyRepository.getReferenceById(ids));
         if(destination.getId() != null) {
-            destinationRepository.save(destination);
+            Destination toEdit = destinationRepository.getDestinationById(destination.getId());
+            toEdit.setCost(destination.getCost());
+            toEdit.setSince(destination.getSince());
+            toEdit.setLink(destination.getLink());
+            toEdit.setDeadline(destination.getDeadline());
+            toEdit.setPlace(destination.getPlace());
+            destinationRepository.save(toEdit);
             return "redirect:?id=" + ids;
         }
         destinationRepository.save(destination);
