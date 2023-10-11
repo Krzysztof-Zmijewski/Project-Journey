@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.coderslab.projectjourney.destination.Destination;
 import pl.coderslab.projectjourney.destination.DestinationRepository;
+import pl.coderslab.projectjourney.exeption.ResourceNotFoundException;
 import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.JourneyRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 @Service
 @AllArgsConstructor
@@ -17,32 +19,43 @@ public class DestinationServiceImpl implements DestinationService{
     public void createOrUpdateExisting(Destination destination, Long ids) {
         if(destination.getId() != null) {
             Destination toEdit = destinationRepository.getDestinationById(destination.getId());
+            Journey journey = journeyRepository.getJourneyById(ids);
+            BigDecimal newValue = journey.getTotalCost().subtract(toEdit.getCost());
+            newValue = newValue.add(destination.getCost());
+            journey.setTotalCost(newValue);
             toEdit.setCost(destination.getCost());
             toEdit.setSince(destination.getSince());
             toEdit.setLink(destination.getLink());
             toEdit.setDeadline(destination.getDeadline());
             toEdit.setPlace(destination.getPlace());
+            journeyRepository.save(journey);
             destinationRepository.save(toEdit);
-        }
+        } else {
         destinationRepository.save(destination);
         Journey journey = journeyRepository.getJourneyById(ids);
+        BigDecimal newValue = journey.getTotalCost().add(destination.getCost());
+        journey.setTotalCost(newValue);
         journey.addDestination(destination);
         journeyRepository.save(journey);
+        }
 
     }
 
     @Override
-    public void delete(Destination destination) {
-
+    public void delete(Long id, Long ids) {
+        Journey journey = journeyRepository.getJourneyById(ids);
+        journey.deleteDestination(destinationRepository.getDestinationById(id));
+        journeyRepository.save(journey);
+        destinationRepository.delete(destinationRepository.getDestinationById(ids));
     }
 
     @Override
-    public Journey get(Long id) {
-        return null;
+    public Destination get(Long id) {
+        return destinationRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public List<Destination> getAll() {
-        return null;
+        return destinationRepository.findAll();
     }
 }

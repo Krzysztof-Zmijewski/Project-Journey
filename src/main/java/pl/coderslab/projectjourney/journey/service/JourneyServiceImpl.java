@@ -6,6 +6,7 @@ import pl.coderslab.projectjourney.exeption.ResourceNotFoundException;
 import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.JourneyRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -22,6 +23,7 @@ public class JourneyServiceImpl implements JourneyService {
             toEdit.setTotalCost(journey.getTotalCost());
             journeyRepository.save(toEdit);
         }
+        journey.setTotalCost(BigDecimal.ZERO);
         journeyRepository.save(journey);
     }
 

@@ -36,4 +36,8 @@ public class Destination {
     public void addTrip (Trip trip) {
         trips.add(trip);
     }
+
+    public void deleteTrip (Trip trip) {
+        trips.removeIf(t -> t.getId().equals(trip.getId()));
+    }
 }

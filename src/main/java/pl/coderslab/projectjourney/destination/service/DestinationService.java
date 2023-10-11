@@ -8,9 +8,9 @@ import java.util.List;
 public interface DestinationService {
     public void createOrUpdateExisting (Destination destination, Long ids);
 
-    public void delete(Destination destination);
+    public void delete(Long id, Long ids);
 
-    public Journey get(Long id);
+    public Destination get(Long id);
 
     public List<Destination> getAll();
 }
