@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Delete Journey</h1>
-<p>Do you want to delete "${journey.get().title}"?</p>
+<p>Do you want to delete "${journey.title}"?</p>
 <form method="post">
-    <input type="hidden" name="id" value="${journey.get().id}"/>
+    <input type="hidden" name="id" value="${journey.id}"/>
     <button type="submit">Yes</button>
     | <a href="${pageContext.request.contextPath}/journey">No</a>
 </form>

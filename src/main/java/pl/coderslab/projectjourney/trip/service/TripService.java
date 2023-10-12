@@ -13,4 +13,6 @@ public interface TripService {
     public Trip get(Long id);
 
     public List<Trip> getAll();
+
+    public Long getJourneyId (Long id);
 }

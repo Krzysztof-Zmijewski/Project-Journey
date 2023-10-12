@@ -25,7 +25,8 @@ public class Journey {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private BigDecimal totalCost;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER)
+    //@JoinColumn(name = "journey_id")
     private List<Destination> destinations;
     private String currency;
     public void addDestination (Destination destination) {

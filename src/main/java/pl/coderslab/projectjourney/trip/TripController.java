@@ -28,7 +28,8 @@ public class TripController {
     @PostMapping("/create")
     public ModelAndView createTrip(@RequestParam Long ids, Trip trip) {
         tripService.createOrUpdateExisting(trip,ids);
-        return new ModelAndView("redirect:/journey/destination?id=" + ids);
+
+        return new ModelAndView("redirect:/journey/destination?id=" + tripService.getJourneyId(ids));
     }
 
     @GetMapping("/edit")

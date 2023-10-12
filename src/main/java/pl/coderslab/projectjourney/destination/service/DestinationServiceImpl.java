@@ -31,11 +31,13 @@ public class DestinationServiceImpl implements DestinationService{
             journeyRepository.save(journey);
             destinationRepository.save(toEdit);
         } else {
-        destinationRepository.save(destination);
         Journey journey = journeyRepository.getJourneyById(ids);
         BigDecimal newValue = journey.getTotalCost().add(destination.getCost());
+        destination.setJourney(journey);
+        destinationRepository.save(destination);
         journey.setTotalCost(newValue);
         journey.addDestination(destination);
+
         journeyRepository.save(journey);
         }
 
@@ -44,6 +46,9 @@ public class DestinationServiceImpl implements DestinationService{
     @Override
     public void delete(Long id, Long ids) {
         Journey journey = journeyRepository.getJourneyById(ids);
+        Destination destination = destinationRepository.getDestinationById(id);
+        BigDecimal newCost = journey.getTotalCost().subtract(destination.getCost());
+        journey.setTotalCost(newCost);
         journey.deleteDestination(destinationRepository.getDestinationById(id));
         journeyRepository.save(journey);
         destinationRepository.delete(destinationRepository.getDestinationById(ids));

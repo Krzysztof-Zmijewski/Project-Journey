@@ -2,10 +2,12 @@ package pl.coderslab.projectjourney.journey.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.coderslab.projectjourney.destination.DestinationRepository;
 import pl.coderslab.projectjourney.exeption.ResourceNotFoundException;
 import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.JourneyRepository;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class JourneyServiceImpl implements JourneyService {
     JourneyRepository journeyRepository;
+    DestinationRepository destinationRepository;
     @Override
     public void createOrUpdateExisting(Journey journey) {
         if(journey.getId() != null) {
@@ -28,7 +31,9 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
+    @Transactional
     public void delete(Journey journey) {
+        destinationRepository.deleteAllByJourney_Id(journey.getId());
         journeyRepository.deleteById(journey.getId());
     }
 
