@@ -22,7 +22,7 @@ public class JourneyController {
     @GetMapping("/create")
     public String createJourney(Model model){
         model.addAttribute("journey", new Journey());
-        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
+        //model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
         return "create-journey-view";
     }
 
@@ -35,7 +35,7 @@ public class JourneyController {
     @GetMapping("/edit")
     public String editJourney(@RequestParam Long id, Model model) {
         model.addAttribute("journey", journeyService.get(id));
-        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
+        //model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
         return "create-journey-view";
     }
 

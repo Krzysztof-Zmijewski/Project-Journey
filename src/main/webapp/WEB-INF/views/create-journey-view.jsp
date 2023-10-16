@@ -23,11 +23,11 @@
             <form:input type="date" path="deadline" autocomplete="true"/>
         </label>
     </div>
-    <div>
-        <label for="currency">Currency:
-            <form:select path="currency" items="${currency}"/>
-        </label>
-    </div>
+<%--    <div>--%>
+<%--        <label for="currency">Currency:--%>
+<%--            <form:select path="currency" items="${currency}"/>--%>
+<%--        </label>--%>
+<%--    </div>--%>
     <form:input path="id" autocomplete="true" type="hidden"/>
     <form:button type="submit">Submit</form:button>
 </form:form>

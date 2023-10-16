@@ -21,7 +21,7 @@ public class TripController {
     public String createTrip(@RequestParam Long ids, Model model) {
         model.addAttribute("trip", new Trip());
         model.addAttribute("ids", ids);
-        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
+        model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
         return "/create-trip-view";
     }
 
@@ -36,7 +36,7 @@ public class TripController {
     public String editTrip(@RequestParam Long id, @RequestParam Long ids, Model model) {
         model.addAttribute("trip", tripService.get(id));
         model.addAttribute("ids", ids);
-        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
+        model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
         return "/create-trip-view";
     }
 

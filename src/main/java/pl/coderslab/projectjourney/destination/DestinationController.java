@@ -26,7 +26,7 @@ public class DestinationController {
     public String createDestination(@RequestParam Long id, Model model) {
         model.addAttribute("destination", new Destination());
         model.addAttribute("ids", id);
-        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
+        model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
         return "create-destination-view";
     }
 
@@ -40,7 +40,7 @@ public class DestinationController {
     public String editDestination(@RequestParam Long id, @RequestParam Long ids, Model model) {
         model.addAttribute("destination", destinationService.get(id));
         model.addAttribute("ids", ids);
-        model.addAttribute("currency", List.of("PLN", "USD", "EU", "GBD"));
+        model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
         return "create-destination-view";
     }
 

@@ -25,6 +25,7 @@ public class Destination {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private BigDecimal cost;
+    private BigDecimal costInPLN;
     private String link;
     @ManyToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name = "journey_id")
