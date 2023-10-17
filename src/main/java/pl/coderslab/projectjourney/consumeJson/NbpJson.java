@@ -11,4 +11,5 @@ public class NbpJson {
     private String currency;
     private String code;
     private List<Rates> rates;
+
 }

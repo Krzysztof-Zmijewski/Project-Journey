@@ -19,6 +19,7 @@ public class Trip {
     private Long id;
     private String place;
     private BigDecimal cost;
+    private BigDecimal costInPLN;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate current;
     private String currency;

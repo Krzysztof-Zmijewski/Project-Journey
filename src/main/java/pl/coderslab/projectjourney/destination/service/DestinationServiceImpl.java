@@ -3,9 +3,7 @@ package pl.coderslab.projectjourney.destination.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import pl.coderslab.projectjourney.consumeJson.NbpJson;
-import pl.coderslab.projectjourney.consumeJson.Rates;
+import pl.coderslab.projectjourney.consumeJson.ExchangeRates;
 import pl.coderslab.projectjourney.destination.Destination;
 import pl.coderslab.projectjourney.destination.DestinationRepository;
 import pl.coderslab.projectjourney.exeption.ResourceNotFoundException;
@@ -20,6 +18,7 @@ import java.util.List;
 public class DestinationServiceImpl implements DestinationService{
     private final DestinationRepository destinationRepository;
     private final JourneyRepository journeyRepository;
+    private final ExchangeRates exchangeRates;
     @Override
     public void createOrUpdateExisting(Destination destination, Long ids) {
         Journey journey = journeyRepository.getJourneyById(ids);
@@ -27,16 +26,10 @@ public class DestinationServiceImpl implements DestinationService{
             Destination toEdit = destinationRepository.getDestinationById(destination.getId());
             BigDecimal newValue = journey.getTotalCost().subtract(toEdit.getCostInPLN());
             if (!destination.getCurrency().equals("PLN")) {
-                RestTemplate restTemplate = new RestTemplate();
-                String url = String.format("http://api.nbp.pl/api/exchangerates/rates/a/%s/?format=json", destination.getCurrency());
-                NbpJson nbpJson = restTemplate.getForObject(url, NbpJson.class);
-                if (nbpJson == null) {
-                    throw new ResourceNotFoundException("Nbp Api site does not respond");
-                }
-                Rates rates = nbpJson.getRates().get(0);
-                log.info(String.valueOf(rates.getMid()));
-                BigDecimal costInPLN = destination.getCost().multiply(rates.getMid());
+                BigDecimal costInPLN = exchangeRates.exchangeToPLN(destination.getCurrency(), destination.getCost());
                 destination.setCostInPLN(costInPLN);
+            } else {
+                destination.setCostInPLN(destination.getCost());
             }
             newValue = newValue.add(destination.getCostInPLN());
             journey.setTotalCost(newValue);
@@ -57,15 +50,7 @@ public class DestinationServiceImpl implements DestinationService{
             journey.addDestination(destination);
 
         } else {
-            RestTemplate restTemplate = new RestTemplate();
-            String url = String.format("http://api.nbp.pl/api/exchangerates/rates/a/%s/?format=json", destination.getCurrency());
-            NbpJson nbpJson = restTemplate.getForObject(url, NbpJson.class);
-            if (nbpJson == null) {
-                throw new ResourceNotFoundException("Nbp Api site does not respond");
-            }
-                Rates rates = nbpJson.getRates().get(0);
-                log.info(String.valueOf(rates.getMid()));
-                BigDecimal costInPLN = destination.getCost().multiply(rates.getMid());
+                BigDecimal costInPLN = exchangeRates.exchangeToPLN(destination.getCurrency(), destination.getCost());
                 BigDecimal newValue = journey.getTotalCost().add(costInPLN);
                 destination.setCostInPLN(costInPLN);
                 destination.setJourney(journey);
