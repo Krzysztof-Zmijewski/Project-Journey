@@ -4,18 +4,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="css/bulma.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>create-journey-view</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <style>
-    .content {
-        max-width: 500px;
-        margin: auto;
-        justify-content: center;
-    }
     form{
-        width: 18%;
+        width: 25%;
         padding: 50px;
         border-radius: 10px;
         background-color: cornflowerblue;
@@ -29,10 +24,10 @@
 <body>
 <div class="content">
     <form:form method="Post" modelAttribute="journey" action="/journey/create"  >
-        <div class="field-label">
+        <div>
             <label class="label" for="title">Title</label>
                 <div class="control">
-                    <form:input cssClass="input" path="title" autocomplete="true"/>
+                    <form:input cssClass="input" path="title" autocomplete="true" />
                 </div>
         </div>
         <div>
@@ -54,7 +49,7 @@
     <%--    </div>--%>
         <form:input path="id" autocomplete="true" type="hidden"/>
             <p class="control">
-                <button type="submit" class="button is-primary">Create</button>
+                <button type="submit" class="button is-primary is-small">Submit</button>
             </p>
     </form:form>
 </div>
