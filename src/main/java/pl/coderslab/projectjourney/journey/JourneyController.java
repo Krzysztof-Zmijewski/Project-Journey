@@ -47,7 +47,7 @@ public class JourneyController {
 
     @PostMapping("/delete")
     public String deleteJourney(Journey journey) {
-        journeyService.delete(journey);
+        journeyService.delete(journeyService.get(journey.getId()));
         return "redirect:/journey";
     }
 

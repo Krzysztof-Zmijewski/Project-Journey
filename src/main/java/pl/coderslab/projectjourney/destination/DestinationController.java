@@ -1,6 +1,7 @@
 package pl.coderslab.projectjourney.destination;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @Controller
 @RequestMapping("journey/destination")
 @AllArgsConstructor
+@Slf4j
 public class DestinationController {
     private DestinationService destinationService;
     private final JourneyService journeyService;
@@ -19,6 +21,10 @@ public class DestinationController {
     @GetMapping("")
     public String detailsJourney(@RequestParam Long id, Model model) {
         model.addAttribute("journey", journeyService.get(id));
+        model.addAttribute("destinations", journeyService.getAllDestinationsForJourney(journeyService.get(id)));
+        for (Destination d: journeyService.getAllDestinationsForJourney(journeyService.get(id))) {
+            log.info("{}", d.toString());
+        }
         return "details-journey-view";
     }
 

@@ -15,4 +15,5 @@ public interface TripService {
     public List<Trip> getAll();
 
     public Long getJourneyId (Long id);
+
 }
