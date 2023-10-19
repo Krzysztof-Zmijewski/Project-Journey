@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.projectjourney.destination.service.DestinationService;
+import pl.coderslab.projectjourney.journey.Journey;
 import pl.coderslab.projectjourney.journey.service.JourneyService;
 
 import java.util.List;
@@ -21,10 +22,8 @@ public class DestinationController {
     @GetMapping("")
     public String detailsJourney(@RequestParam Long id, Model model) {
         model.addAttribute("journey", journeyService.get(id));
-        model.addAttribute("destinations", journeyService.getAllDestinationsForJourney(journeyService.get(id)));
-        for (Destination d: journeyService.getAllDestinationsForJourney(journeyService.get(id))) {
-            log.info("{}", d.toString());
-        }
+        //model.addAttribute("destinations", journeyService.getAllDestinationsForJourney(journeyService.get(id)));
+        //log.info("{}", journeyService.get(id).toString());
         return "details-journey-view";
     }
 

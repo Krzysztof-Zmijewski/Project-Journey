@@ -18,6 +18,12 @@
         left: 37%;
         top: 20%;
     }
+    body {
+        background-image: url('${pageContext.request.contextPath}/jpg/pexels-asad-photo-maldives-457881.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
 
 </style>
 <body>

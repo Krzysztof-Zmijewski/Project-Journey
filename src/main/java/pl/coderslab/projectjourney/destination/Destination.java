@@ -31,7 +31,7 @@ public class Destination {
     private String link;
     @ManyToOne()
     private Journey journey;
-    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
+    @OneToMany( fetch = FetchType.EAGER)
     private List<Trip> trips;
     private String currency;
 

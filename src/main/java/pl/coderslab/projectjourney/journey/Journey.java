@@ -2,6 +2,9 @@ package pl.coderslab.projectjourney.journey;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.projectjourney.destination.Destination;
 
@@ -14,6 +17,7 @@ import java.util.List;
 @Table(name = "journeys")
 @Getter
 @Setter
+@ToString
 public class Journey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +28,8 @@ public class Journey {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private BigDecimal totalCost;
-    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER)
+    @OneToMany( fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     //@JoinColumn(name = "journey_id")
     private List<Destination> destinations;
     private String currency;

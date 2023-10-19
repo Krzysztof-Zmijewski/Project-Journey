@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<style>
+    body {
+        background-image: url('${pageContext.request.contextPath}/jpg/pexels-asad-photo-maldives-457881.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
 <body>
 <h2 class="title has-text-centered">${journey.title} </h2>
 <div class="has-text-centered has-addons-right">

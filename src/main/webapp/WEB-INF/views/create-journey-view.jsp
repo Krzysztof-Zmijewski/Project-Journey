@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <style>
-    form{
+    form {
         width: 25%;
         padding: 50px;
         border-radius: 10px;
@@ -18,6 +18,12 @@
         position: absolute;
         left: 37%;
         top: 20%;
+    }
+    body {
+        background-image: url('${pageContext.request.contextPath}/jpg/pexels-asad-photo-maldives-457881.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
     }
 
 </style>
