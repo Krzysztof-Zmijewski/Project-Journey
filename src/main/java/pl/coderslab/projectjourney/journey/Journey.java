@@ -1,8 +1,6 @@
 package pl.coderslab.projectjourney.journey;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Journey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
