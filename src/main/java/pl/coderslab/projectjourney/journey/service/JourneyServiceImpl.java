@@ -36,6 +36,9 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     @Transactional
     public void delete(Journey journey) {
+        if (journey == null) {
+            throw new IllegalArgumentException("Journey cannot be null");
+        }
         for (Destination d: journey.getDestinations()) {
             tripRepository.deleteAllByDestination_Id(d.getId());
         }

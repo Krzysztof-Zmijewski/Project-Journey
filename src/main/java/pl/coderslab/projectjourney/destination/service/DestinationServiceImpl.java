@@ -19,6 +19,11 @@ public class DestinationServiceImpl implements DestinationService{
     private final DestinationRepository destinationRepository;
     private final JourneyRepository journeyRepository;
     private final ExchangeRates exchangeRates;
+    /*
+    Metoda ta dodaje destination, jeżeli przekazane destination nie posiada id lub edytuje, jeśli je posiada.
+    W przypadku waluty innej niż PLN również przelicza cost na PLN.
+    Cost jest dodawany do Journey.totalCost w przypadku tworzenia, przy edycji usuwa starą cenę i dodaje nową.
+     */
     @Override
     public void createOrUpdateExisting(Destination destination, Long ids) {
         Journey journey = journeyRepository.getJourneyById(ids);
@@ -63,6 +68,9 @@ public class DestinationServiceImpl implements DestinationService{
 
     @Override
     public void delete(Long id, Long ids) {
+        if (id == null) {
+            throw new IllegalArgumentException("Destination cannot be null");
+        }
         Journey journey = journeyRepository.getJourneyById(ids);
         Destination destination = destinationRepository.getDestinationById(id);
         BigDecimal newCost = journey.getTotalCost().subtract(destination.getCostInPLN());

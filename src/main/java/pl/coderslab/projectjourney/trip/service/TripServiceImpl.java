@@ -20,6 +20,10 @@ public class TripServiceImpl implements TripService {
     private final DestinationRepository destinationRepository;
     private final JourneyRepository journeyRepository;
     private final ExchangeRates exchangeRates;
+    /*
+    Metoda służy do dodania lub edycji Trip. W przypadku pola currency innego niż PLN przelicza na PLN.
+    Przy tworzeniu dodaje cost do Journey.totalCost, przy edycji usuwa stary cost i dodaje nowy.
+     */
     @Override
     public void createOrUpdateExisting(Trip trip, Long ids) {
         Destination destination = destinationRepository.findById(ids).orElseThrow(ResourceNotFoundException::new);
@@ -33,7 +37,8 @@ public class TripServiceImpl implements TripService {
             } else {
                 trip.setCostInPLN(trip.getCostInPLN());
             }
-            journey.setTotalCost(journey.getTotalCost().subtract(beforeEdit.getCostInPLN()).add(trip.getCostInPLN()));
+            journey.setTotalCost(journey.getTotalCost().subtract(beforeEdit.getCostInPLN()));
+            journey.setTotalCost(journey.getTotalCost().add(trip.getCostInPLN()));
             beforeEdit.setCost(trip.getCost());
             beforeEdit.setCurrency(trip.getCurrency());
             beforeEdit.setPlace(trip.getPlace());
@@ -63,6 +68,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void delete(Long id, Long ids) {
+        if (id == null) {
+            throw new IllegalArgumentException("Trip cannot be null");
+        }
         Destination destination = destinationRepository.getDestinationById(ids);
         destination.deleteTrip(tripRepository.getTripById(id));
         Journey journey = destination.getJourney();
