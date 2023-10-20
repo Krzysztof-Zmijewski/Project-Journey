@@ -2,6 +2,7 @@ package pl.coderslab.projectjourney.trip;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.projectjourney.destination.Destination;
 
 import javax.persistence.*;
@@ -18,8 +19,11 @@ public class Trip {
     private Long id;
     private String place;
     private BigDecimal cost;
+    private BigDecimal costInPLN;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate current;
-    @ManyToOne
-    @JoinColumn(name = "destination_id")
+    private String currency;
+    @ManyToOne()
+//    @JoinColumn(name = "destination_id")
     private Destination destination;
 }

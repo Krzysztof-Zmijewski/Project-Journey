@@ -3,30 +3,52 @@ package pl.coderslab.projectjourney.journey;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.projectjourney.journey.service.JourneyService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/journey")
 @AllArgsConstructor
 public class JourneyController {
-    private JourneyRepository journeyRepository;
+    private JourneyService journeyService;
     @GetMapping
     public String homePage(Model model) {
-        model.addAttribute("journeys", journeyRepository.findAll());
+        model.addAttribute("journeys", journeyService.getAll());
         return "home-page";
     }
 
     @GetMapping("/create")
     public String createJourney(Model model){
         model.addAttribute("journey", new Journey());
+        //model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
         return "create-journey-view";
     }
 
     @PostMapping("/create")
     public String createJourney(Journey journey){
-        journeyRepository.save(journey);
+        journeyService.createOrUpdateExisting(journey);
         return "redirect:/journey";
     }
+
+    @GetMapping("/edit")
+    public String editJourney(@RequestParam Long id, Model model) {
+        model.addAttribute("journey", journeyService.get(id));
+        //model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
+        return "create-journey-view";
+    }
+
+    @GetMapping("/delete")
+    public String confirmDelete(@RequestParam Long id, Model model) {
+        model.addAttribute("journey", journeyService.get(id));
+        return "delete-journey-view";
+    }
+
+    @PostMapping("/delete")
+    public String deleteJourney(Journey journey) {
+        journeyService.delete(journeyService.get(journey.getId()));
+        return "redirect:/journey";
+    }
+
 }
