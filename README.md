@@ -6,7 +6,7 @@ jest ona przeliczana i dodawana do sumy w złotówkach na podstawie
 aktualnych kursów.
 
 #Widok aplikacji
-![](github.com/Krzysztof-Zmijewski/Project-Journey/blob/develop/details-journey-view.gif)
+![](https://github.com/Krzysztof-Zmijewski/Project-Journey/blob/6d213e026725101e570c0ea949fdb3d348046ed6/details-journey-view.gif)
 
 
 Technologie użyte w projekcie:
