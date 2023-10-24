@@ -31,7 +31,6 @@ public class Journey {
     private BigDecimal totalCost;
     @OneToMany( fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
-    //@JoinColumn(name = "journey_id")
     private List<Destination> destinations;
     private String currency;
     public void addDestination (Destination destination) {

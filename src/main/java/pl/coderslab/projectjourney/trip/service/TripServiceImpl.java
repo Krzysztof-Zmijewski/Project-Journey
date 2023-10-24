@@ -49,7 +49,6 @@ public class TripServiceImpl implements TripService {
             BigDecimal newValue = journey.getTotalCost().add(trip.getCost());
             trip.setCostInPLN(trip.getCost());
             destination.addTrip(trip);
-           // trip.setDestination(destination);
             tripRepository.save(trip);
             destinationRepository.save(destination);
             journey.setTotalCost(newValue);
@@ -57,7 +56,6 @@ public class TripServiceImpl implements TripService {
             BigDecimal costInPLN = exchangeRates.exchangeToPLN(trip.getCurrency(), trip.getCost());
             trip.setCostInPLN(costInPLN);
             journey.setTotalCost(journey.getTotalCost().add(trip.getCostInPLN()));
-            //trip.setDestination(destination);
             tripRepository.save(trip);
             destination.addTrip(trip);
             destinationRepository.save(destination);
@@ -75,9 +73,11 @@ public class TripServiceImpl implements TripService {
         destination.deleteTrip(tripRepository.getTripById(id));
         Journey journey = destination.getJourney();
         journey.setTotalCost(journey.getTotalCost().subtract(tripRepository.getTripById(id).getCost()));
-        journeyRepository.save(journey);
-        destinationRepository.save(destination);
         tripRepository.deleteById(id);
+        destinationRepository.save(destination);
+        journeyRepository.save(journey);
+
+
     }
 
     @Override

@@ -24,6 +24,5 @@ public class Trip {
     private LocalDate current;
     private String currency;
     @ManyToOne()
-//    @JoinColumn(name = "destination_id")
     private Destination destination;
 }
