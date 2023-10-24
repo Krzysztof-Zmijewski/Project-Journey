@@ -16,14 +16,12 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class DestinationController {
-    private DestinationService destinationService;
+    private final DestinationService destinationService;
     private final JourneyService journeyService;
 
     @GetMapping("")
     public String detailsJourney(@RequestParam Long id, Model model) {
         model.addAttribute("journey", journeyService.get(id));
-        //model.addAttribute("destinations", journeyService.getAllDestinationsForJourney(journeyService.get(id)));
-        //log.info("{}", journeyService.get(id).toString());
         return "details-journey-view";
     }
 

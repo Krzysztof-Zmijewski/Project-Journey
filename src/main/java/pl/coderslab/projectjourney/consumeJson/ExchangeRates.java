@@ -31,3 +31,4 @@ public class ExchangeRates {
         return value.divide(rates.getMid(), RoundingMode.UNNECESSARY);
     }
 }
+//zrobić bean z restTemplate

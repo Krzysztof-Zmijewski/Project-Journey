@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "destinations")
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"trips"})
 public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
