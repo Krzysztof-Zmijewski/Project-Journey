@@ -1,5 +1,6 @@
 package pl.coderslab.projectjourney.consumeJson;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.coderslab.projectjourney.exeption.ResourceNotFoundException;
@@ -8,9 +9,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Component
+@RequiredArgsConstructor
 public class ExchangeRates {
+    private final RestTemplate restTemplate;
     public BigDecimal exchangeToPLN (String currency, BigDecimal value) {
-        RestTemplate restTemplate = new RestTemplate();
         String url = String.format("http://api.nbp.pl/api/exchangerates/rates/a/%s/?format=json", currency);
         NbpJson nbpJson = restTemplate.getForObject(url, NbpJson.class);
         if (nbpJson == null) {
@@ -21,7 +23,6 @@ public class ExchangeRates {
     }
 
     public BigDecimal exchangeFromPLN (String currency, BigDecimal value) {
-        RestTemplate restTemplate = new RestTemplate();
         String url = String.format("http://api.nbp.pl/api/exchangerates/rates/a/%s/?format=json", currency);
         NbpJson nbpJson = restTemplate.getForObject(url, NbpJson.class);
         if (nbpJson == null) {

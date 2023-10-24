@@ -49,6 +49,7 @@
         </label>
     </div>
     <form:input path="id" autocomplete="true" type="hidden"/>
+    <form:input path="costInPLN" autocomplete="true" type="hidden"/>
     <button type="submit" class="button is-primary is-small">Submit</button>
 </form:form>
 </body>
