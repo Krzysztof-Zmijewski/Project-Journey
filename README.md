@@ -17,3 +17,9 @@ Technologie użyte w projekcie:
 - MySQL
 - Jsp/CSS
 - NBP Web API
+
+Konfiguracja:
+- Przejdź do folderu src/main/resources
+- Otwórz plik application.properties
+- Zmień spring.datasource.username na swoją nazwę użytkownika MySQL
+- Zmień spring.datasource.password na swoje hasło MySQL
