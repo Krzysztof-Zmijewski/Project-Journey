@@ -25,45 +25,48 @@ public class DestinationServiceImpl implements DestinationService{
     Cost jest dodawany do Journey.totalCost w przypadku tworzenia, przy edycji usuwa starą cenę i dodaje nową.
      */
     @Override
-    public void createOrUpdateExisting(Destination destination, Long ids) {
+    public void create(Destination destination, Long ids) {
         Journey journey = journeyRepository.getJourneyById(ids);
-        if(destination.getId() != null) {
-            Destination toEdit = destinationRepository.getDestinationById(destination.getId());
-            BigDecimal newValue = journey.getTotalCost().subtract(toEdit.getCostInPLN());
-            if (!destination.getCurrency().equals("PLN")) {
-                BigDecimal costInPLN = exchangeRates.exchangeToPLN(destination.getCurrency(), destination.getCost());
-                destination.setCostInPLN(costInPLN);
-            } else {
-                destination.setCostInPLN(destination.getCost());
-            }
-            newValue = newValue.add(destination.getCostInPLN());
-            journey.setTotalCost(newValue);
-            toEdit.setCost(destination.getCost());
-            toEdit.setCostInPLN(destination.getCostInPLN());
-            toEdit.setSince(destination.getSince());
-            toEdit.setLink(destination.getLink());
-            toEdit.setDeadline(destination.getDeadline());
-            toEdit.setPlace(destination.getPlace());
-            toEdit.setCurrency(destination.getCurrency());
-            destinationRepository.save(toEdit);
-        } else if (destination.getCurrency().equals("PLN")) {
-            BigDecimal newValue = journey.getTotalCost().add(destination.getCost());
-            destination.setJourney(journey);
-            destination.setCostInPLN(destination.getCost());
-            destinationRepository.save(destination);
-            journey.setTotalCost(newValue);
-            journey.addDestination(destination);
+        BigDecimal newValue;
+         if (destination.getCurrency().equals("PLN")) {
+             newValue = journey.getTotalCost().add(destination.getCost());
+             destination.setCostInPLN(destination.getCost());
 
         } else {
                 BigDecimal costInPLN = exchangeRates.exchangeToPLN(destination.getCurrency(), destination.getCost());
-                BigDecimal newValue = journey.getTotalCost().add(costInPLN);
+                newValue = journey.getTotalCost().add(costInPLN);
                 destination.setCostInPLN(costInPLN);
-                destination.setJourney(journey);
-                destinationRepository.save(destination);
-                journey.setTotalCost(newValue);
-                journey.addDestination(destination);
-            }
+         }
+        destination.setJourney(journey);
+        destinationRepository.save(destination);
+        journey.setTotalCost(newValue);
+        journey.addDestination(destination);
         journeyRepository.save(journey);
+    }
+
+    @Override
+    public void edit(Destination destination, Long ids) {
+        Journey journey = journeyRepository.getJourneyById(ids);
+        Destination toEdit = destinationRepository.getDestinationById(destination.getId());
+        BigDecimal newValue = journey.getTotalCost().subtract(toEdit.getCostInPLN());
+        if (!destination.getCurrency().equals("PLN")) {
+            BigDecimal costInPLN = exchangeRates.exchangeToPLN(destination.getCurrency(), destination.getCost());
+            destination.setCostInPLN(costInPLN);
+        } else {
+            destination.setCostInPLN(destination.getCost());
+        }
+        newValue = newValue.add(destination.getCostInPLN());
+        journey.setTotalCost(newValue);
+        toEdit.setCost(destination.getCost());
+        toEdit.setCostInPLN(destination.getCostInPLN());
+        toEdit.setSince(destination.getSince());
+        toEdit.setLink(destination.getLink());
+        toEdit.setDeadline(destination.getDeadline());
+        toEdit.setPlace(destination.getPlace());
+        toEdit.setCurrency(destination.getCurrency());
+        destinationRepository.save(toEdit);
+        journeyRepository.save(journey);
+
     }
 
     @Override
@@ -89,4 +92,5 @@ public class DestinationServiceImpl implements DestinationService{
     public List<Destination> getAll() {
         return destinationRepository.findAll();
     }
+
 }

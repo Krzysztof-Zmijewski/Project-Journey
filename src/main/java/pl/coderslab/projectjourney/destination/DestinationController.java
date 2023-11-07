@@ -35,7 +35,7 @@ public class DestinationController {
 
     @PostMapping("/create")
     public String createDestination(@RequestParam Long ids,Destination destination) {
-        destinationService.createOrUpdateExisting(destination, ids);
+        destinationService.create(destination, ids);
         return "redirect:?id=" + ids;
     }
 
@@ -44,7 +44,12 @@ public class DestinationController {
         model.addAttribute("destination", destinationService.get(id));
         model.addAttribute("ids", ids);
         model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
-        return "create-destination-view";
+        return "edit-destination-view";
+    }
+    @PostMapping("/edit")
+    public String editDestination(@RequestParam Long ids, Destination destination) {
+        destinationService.edit(destination, ids);
+        return "redirect:?id=" + ids;
     }
 
     @GetMapping("/delete")
