@@ -27,7 +27,7 @@
 
 </style>
 <body>
-<form:form method="Post" modelAttribute="destination" action="/journey/destination/create?ids=${ids}" >
+<form:form method="Post" modelAttribute="destination" action="/journey/destination/edit?ids=${ids}" >
     <div>
         <label class="label" for="place">Place:
             <form:input path="place" autocomplete="true"/>
@@ -58,6 +58,8 @@
             <form:input path="link" autocomplete="true"/>
         </label>
     </div>
+    <form:input path="id" autocomplete="true" type="hidden"/>
+    <form:input path="costInPLN" autocomplete="true" type="hidden"/>
     <button type="submit" class="button is-primary is-small">Submit</button>
 </form:form>
 </body>
