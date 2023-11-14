@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.projectjourney.journey.service.JourneyService;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/journey")
@@ -22,7 +22,7 @@ public class JourneyController {
     @GetMapping("/create")
     public String createJourney(Model model){
         model.addAttribute("journey", new Journey());
-        //model.addAttribute("currency", List.of("PLN", "USD", "EUR", "GBP"));
+        model.addAttribute("min", LocalDate.now());
         return "create-journey-view";
     }
 

@@ -39,20 +39,15 @@
         <div>
             <label class="label" for="since">Since</label>
             <div class="control">
-                <form:input cssClass="input" type="date" path="since" autocomplete="true"/>
+                <form:input id="since" cssClass="input" type="date" path="since" autocomplete="true" min="${min}"/>
             </div>
         </div>
         <div>
             <label class="label" for="deadline">To</label>
             <div>
-                <form:input cssClass="input" type="date" path="deadline" autocomplete="true"/>
+                <form:input id="deadline" cssClass="input" type="date" path="deadline" autocomplete="true" min="${min}"/>
             </div>
         </div>
-    <%--    <div>--%>
-    <%--        <label for="currency">Currency:--%>
-    <%--            <form:select path="currency" items="${currency}"/>--%>
-    <%--        </label>--%>
-    <%--    </div>--%>
         <form:input path="id" autocomplete="true" type="hidden"/>
             <p class="control">
                 <button type="submit" class="button is-primary is-small">Submit</button>
@@ -60,4 +55,5 @@
     </form:form>
 </div>
 </body>
+<script type="text/javascript" src ="${pageContext.request.contextPath}/js/indexForCreateJourney.js"></script>
 </html>
